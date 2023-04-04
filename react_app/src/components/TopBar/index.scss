@@ -1,0 +1,41 @@
+@use '../../theme';
+
+.nav-bar{
+  background: theme.$black;
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  min-width: 100px;
+
+  nav{
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 200px;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: 17px;
+
+    a{
+      color: theme.$white;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-decoration: none;
+      padding: 13px 18px;
+      border: 1px solid theme.$white;
+      margin: 0 0.3em 0 0.3em;
+      transition: all 0.2s;
+      text-align: center;
+      font-family:'Roboto',sans-serif;
+
+      &:hover{
+        background: theme.$white;
+        color: theme.$black;
+      }
+    }
+  }
+}
+

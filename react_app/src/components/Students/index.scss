@@ -1,0 +1,52 @@
+@use '../../theme';
+
+::placeholder{
+  color: theme.$white;
+  opacity: .6;
+}
+
+.addStudent-form{
+  width: 100%;
+  animation: fadeInUp 1s 1s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+
+  input{
+    border: 0;
+    background: theme.$lightBlue;
+    height: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 0 20px;
+    box-sizing: border-box;
+    width: 68%;
+    margin-left: 2%;
+    float: left;
+    clear: none;
+    display: block;
+    border-radius: 0.2em;
+  }
+
+  .add-button{
+    display:inline-block;
+    padding:0.45em 1.2em;
+    border:0.1em solid theme.$lightRed;
+    margin:0.1em 0.3em 0 1%;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color: theme.$lightRed;
+    text-align:center;
+    transition: all 0.2s;
+    font-size: 16px;
+    clear: none;
+    background: transparent;
+
+    &:hover{
+      color: theme.$white;
+      background-color: theme.$lightRed;
+    }
+  }
+}
