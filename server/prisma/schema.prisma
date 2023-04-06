@@ -11,21 +11,23 @@ datasource db {
 }
 
 model Student {
-  id      Int                @id @default(autoincrement())
-  name    String
+  id   Int    @id @default(autoincrement())
+  name String
+
   classes ClassesOnStudent[]
 }
 
 model Class {
-  id       Int                @id @default(autoincrement())
-  name     String
+  id   Int    @id @default(autoincrement())
+  name String
+
   students ClassesOnStudent[]
 }
 
 model ClassesOnStudent {
-  student   Student @relation(fields: [studentId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
   studentId Int
-  class     Class   @relation(fields: [classId], references: [id])
+  class     Class   @relation(fields: [classId], references: [id], onDelete: Cascade)
   classId   Int
 
   @@id([studentId, classId])

@@ -1,0 +1,57 @@
+@use '../../theme';
+
+.student-container{
+  h2{
+    display: inline-block;
+    float: left;
+    margin: .8em 0 .8em .5em;
+    color: black;
+
+    &:hover{
+      border-bottom: .1em solid theme.$yellow;
+      transition: border-bottom-width 0.2s;
+    }
+  }
+}
+
+.new-student-container {
+  position: relative;
+  flex: 1 1 12%;
+  height: 35px;
+  width: 80%;
+  border: 0.2em solid theme.$yellow;
+  border-radius: .6em;
+  margin-top: 8px;
+  padding: 0 10px;
+  opacity: 0;
+  animation: fadeInUp .5s forwards;
+
+  &:hover{
+    border: 0.4em solid theme.$yellow;
+    background-color: theme.$lightYellow;
+  }
+
+  h3{
+    color: black;
+
+    &:hover{
+      border-bottom: .1em solid theme.$yellow;
+      transition: border-bottom-width 0.2s;
+    }
+  }
+}
+
+.class-title{
+  margin-left: 3%;
+  border-left: .4em solid theme.$orange;
+  padding-left: 3%;
+  margin-bottom: 2%;
+  background: theme.$lightOrange;
+
+  h1{
+    display: inline-block;
+    margin: .2em 0;
+    font-size: 3em;
+    border-bottom: .1em solid theme.$orange;
+  }
+}

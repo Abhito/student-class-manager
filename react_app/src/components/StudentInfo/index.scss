@@ -1,0 +1,162 @@
+@use '../../theme';
+
+.student-title{
+  margin-left: 3%;
+  border-left: .4em solid theme.$yellow;
+  padding-left: 2em;
+  margin-bottom: 2%;
+  background: theme.$lightYellow;
+
+  h1{
+    display: inline-block;
+    margin: .2em 0;
+    font-size: 3em;
+    border-bottom: .1em solid theme.$yellow;
+  }
+}
+
+.unenroll{
+  border:0.1em solid theme.$lightRed;
+  color: theme.$lightRed;
+  font-weight: 700;
+  display: inline-block;
+  float: right;
+  margin: .8em .8em .8em 0;
+  padding: 1em .5em;
+
+  &:hover{
+    color: theme.$white;
+    background-color: theme.$lightRed;
+  }
+}
+
+.class-container{
+  h2{
+    display: inline-block;
+    float: left;
+    margin: .8em 0 .8em .5em;
+    color: #000000;
+
+    &:hover{
+      border-bottom: .1em solid theme.$orange;
+      transition: border-bottom-width 0.2s;
+    }
+  }
+}
+
+.enroll-container{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.big-enroll {
+  width: 80%;
+  padding: 0.8em 1.2em;
+  border-radius: 0.6em;
+  text-align: center;
+  transition: all 0.2s;
+  font-size: 18px;
+  background: transparent;
+  border: 0.1em solid theme.$lightGreen;
+  color: theme.$lightGreen;
+  font-weight: 700;
+  margin-bottom: 1%;
+
+  &.clicked{
+    border: 0.1em solid theme.$lightBlue;
+    color: theme.$white;
+    background-color: theme.$lightBlue;
+
+    &:hover{
+      color: theme.$lightBlue;
+      background-color: transparent;
+    }
+  }
+
+  &:hover {
+    width: 80%;
+    color: theme.$white;
+    background-color: theme.$lightGreen;
+  }
+}
+
+  .dropdown{
+    display: flex;
+    width: 90%;
+    height: 0;
+    overflow: hidden;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &.expand{
+      height: 100%;
+      opacity: 0;
+      animation: fadeInDown .5s forwards;
+      border-bottom: .2em solid theme.$lightBlue;
+      padding-bottom: 1.5em;
+    }
+
+    &.collapse{
+      animation: fadeOutUp .4s forwards;
+      transition: height .6s ease-out;
+    }
+
+      h3{
+        display: inline-block;
+        float: left;
+        margin: .7em 0 .5em .3em;
+      }
+
+      .enroll{
+        border:0.1em solid theme.$lightGreen;
+        border-radius: 0.4rem;
+        color: theme.$lightGreen;
+        font-weight: 700;
+        float: right;
+        display: inline-block;
+        margin: .7em 0;
+
+        &:hover{
+          color: theme.$white;
+          background-color: theme.$lightGreen;
+        }
+      }
+  }
+
+.new-class-container {
+  position: relative;
+  flex: 1 1 12%;
+  height: 35px;
+  width: 80%;
+  border: 0.2em solid theme.$orange;
+  border-radius: .6em;
+  margin-top: 8px;
+  padding: 0 10px;
+  opacity: 0;
+  animation: fadeInUp .5s forwards;
+
+  &:hover{
+    border: 0.4em solid theme.$orange;
+    background-color: theme.$lightOrange;
+  }
+
+  h3{
+    color: black;
+
+    &:hover{
+      border-bottom: .1em solid theme.$orange;
+      transition: border-bottom-width 0.2s;
+    }
+  }
+}

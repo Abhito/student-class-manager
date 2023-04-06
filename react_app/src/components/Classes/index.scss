@@ -1,1 +1,44 @@
 @use '../../theme';
+
+#class-input{
+  background: theme.$green;
+}
+
+#class-button{
+  color: theme.$green;
+  border:0.1em solid theme.$green;
+
+  &:hover{
+    background-color: theme.$green;
+    color: theme.$white;
+  }
+}
+
+.class-container{
+  position: relative;
+  flex: 1 1 12%;
+  height: 35px;
+  width: 80%;
+  border-left: .5em solid theme.$orange;
+  border-bottom: .2em solid theme.$orange;
+  border-radius: .1em;
+  margin-top: 8px;
+  padding: 0 .2em;
+  opacity: 0;
+  animation: fadeInUp 1s 1s;
+  animation-fill-mode: forwards;
+
+  &:hover{
+    border: .2em solid theme.$orange;
+    background: theme.$lightOrange;
+    transition: all 0.2s;
+  }
+
+  p{
+    display: inline-block;
+    float: left;
+    font-size: 18px;
+    margin: .8em 0 .8em 1em;
+    font-weight: 500;
+  }
+}
