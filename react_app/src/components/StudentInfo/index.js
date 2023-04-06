@@ -2,6 +2,11 @@ import './index.scss'
 import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 
+/**
+ * Student view displays student information and allows you to edit their classes
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const StudentInfo = () =>{
     const [studentClasses, setStudentClasses] = useState([])
     const [newClasses, setNewClasses] = useState([])
@@ -13,18 +18,21 @@ const StudentInfo = () =>{
         fetchNewClasses()
     }, [])
 
+    //Get all enrolled classes
     const fetchStudentClasses = async() =>{
         await fetch(`http://localhost:3001/classes/student?id=${state.student.id}`)
             .then(response => response.json())
             .then(result => setStudentClasses(result))
     }
 
+    //Get all unenrolled classes
     const fetchNewClasses = async() =>{
         await fetch(`http://localhost:3001/classes/student/new?id=${state.student.id}`)
             .then(response => response.json())
             .then(result => setNewClasses(result))
     }
 
+    //Unenroll from class
     const deleteItem = async(course) => {
         await fetch("http://localhost:3001/student/class", {
             method: "DELETE",
@@ -45,7 +53,7 @@ const StudentInfo = () =>{
     }
 
 
-
+    //Show classes to enroll to
     const showDropdown = () =>{
         const dropdown = document.querySelector(".dropdown")
         const button = document.querySelector(".big-enroll")
@@ -63,6 +71,7 @@ const StudentInfo = () =>{
         }
     }
 
+    //Enroll into class
     const addItem = async (course) =>{
 
         await fetch("http://localhost:3001/classes/student", {
@@ -83,6 +92,7 @@ const StudentInfo = () =>{
             })
     }
 
+    //Show all unenrolled classes
     const renderNewClasses = (newClasses) =>{
         return(
             <div className="enroll-container">
@@ -108,6 +118,7 @@ const StudentInfo = () =>{
         )
     }
 
+    //Show all enrolled classes
     const renderClasses = (studentClasses) =>{
         return(
             <div className="list-container">

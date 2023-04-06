@@ -2,10 +2,16 @@ import './index.scss'
 import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 
+/**
+ * Students view displays all students
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Students = () => {
     const [students, setStudents] = useState([])
     const form = useRef()
 
+    //Get all students when page first loads
     useEffect(  () =>{
         fetchStudents()
     },[])
@@ -16,6 +22,7 @@ const Students = () => {
             .then(result => setStudents(result))
     }
 
+    //add Student to list
     const addStudent = async (e) => {
         e.preventDefault()
 
@@ -36,6 +43,7 @@ const Students = () => {
             })
     }
 
+    //Delete student from list
     const deleteStudent = async (student) =>{
         await fetch("http://localhost:3001/students", {
             method: "DELETE",
@@ -53,6 +61,7 @@ const Students = () => {
             })
     }
 
+    //display all students in database
     const renderStudents = (students) =>{
         return(
             <div className="list-container">

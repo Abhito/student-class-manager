@@ -3,6 +3,11 @@ import './index.scss'
 import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 
+/**
+ * Class view shows class information and allows you to edit which students are enrolled
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ClassInfo = () =>{
     const [classStudents, setClassStudents] = useState([])
     const [newStudents, setNewStudents] = useState([])
@@ -14,18 +19,21 @@ const ClassInfo = () =>{
         fetchNewStudents()
     }, [])
 
+    //Get students that are enrolled in class
     const fetchClassStudents = async() =>{
         await fetch(`http://localhost:3001/students/class?id=${state.course.id}`)
             .then(response => response.json())
             .then(result => setClassStudents(result))
     }
 
+    //Get students not enrolled in class
     const fetchNewStudents = async() =>{
         await fetch(`http://localhost:3001/students/class/new?id=${state.course.id}`)
             .then(response => response.json())
             .then(result => setNewStudents(result))
     }
 
+    //Add student to class
     const addItem = async (student) =>{
 
         await fetch("http://localhost:3001/classes/student", {
@@ -46,6 +54,7 @@ const ClassInfo = () =>{
             })
     }
 
+    //Remove student from class
     const deleteItem = async(student) => {
         await fetch("http://localhost:3001/student/class", {
             method: "DELETE",
@@ -65,6 +74,7 @@ const ClassInfo = () =>{
             })
     }
 
+    //Handles showing the students that can be added
     const showDropdown = () =>{
         const dropdown = document.querySelector(".dropdown")
         const button = document.querySelector(".big-enroll")
@@ -82,7 +92,8 @@ const ClassInfo = () =>{
         }
     }
 
-    const renderClasses = (classStudents) =>{
+    //displays all enrolled students
+    const renderStudents = (classStudents) =>{
         return(
             <div className="list-container">
                 {
@@ -102,8 +113,8 @@ const ClassInfo = () =>{
         );
     }
 
-
-    const renderNewClasses = (newStudents) =>{
+    //Displays all unenrolled students
+    const renderNewStudents = (newStudents) =>{
         return(
             <div className="enroll-container">
                 <button className="big-enroll" type="button"
@@ -134,10 +145,10 @@ const ClassInfo = () =>{
                 <h1>{state.course.name}</h1>
             </div>
             <div>
-                {renderNewClasses(newStudents)}
+                {renderNewStudents(newStudents)}
             </div>
             <div>
-                {renderClasses(classStudents)}
+                {renderStudents(classStudents)}
             </div>
         </div>
     )

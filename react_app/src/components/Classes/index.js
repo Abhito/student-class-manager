@@ -2,10 +2,16 @@ import './index.scss'
 import {useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 
+/**
+ * Classes View shows all classes
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Classes = () => {
     const [classes, setClasses] = useState([])
     const form = useRef()
 
+    //Get classes when page first loads
     useEffect(  () =>{
         fetchClasses()
     },[])
@@ -16,17 +22,18 @@ const Classes = () => {
             .then(result => setClasses(result))
     }
 
+    //Add class to list
     const addClass = async (e) => {
         e.preventDefault()
 
-        const studentName = form.current[0]?.value;
+        const className = form.current[0]?.value;
         await fetch("http://localhost:3001/classes", {
             method: "POST",
             headers:{
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                "name": studentName
+                "name": className
             })
         })
             .then((result) => result.json())
@@ -36,6 +43,7 @@ const Classes = () => {
             })
     }
 
+    //Delete class from list
     const deleteClass = async (classi) =>{
         await fetch("http://localhost:3001/classes", {
             method: "DELETE",
@@ -53,6 +61,7 @@ const Classes = () => {
             })
     }
 
+    //Display each class in list
     const renderClasses = (classes) =>{
         return(
             <div className="list-container">
