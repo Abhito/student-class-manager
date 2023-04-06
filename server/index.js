@@ -1,15 +1,16 @@
-
-
 const express = require("express");
 const {PrismaClient} = require("@prisma/client")
 const prisma = new PrismaClient()
 const PORT = process.env.PORT || 3001;
 
+/**
+ * API server for WEB Application
+ * @type {*|Express}
+ */
 const app = express();
 const cors = require("cors");
 
 app.use(cors());
-// parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
 
 // parse application/json
@@ -18,6 +19,9 @@ app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
 
+/**
+ * Create new Student with given name
+ */
 app.post("/students", async(req, res) =>{
     try{
         const {name} = req.body
@@ -36,6 +40,9 @@ app.post("/students", async(req, res) =>{
     }
 })
 
+/**
+ * Returns All Students
+ */
 app.get("/students", async (req, res) => {
     try{
         const students = await prisma.student.findMany()
@@ -47,6 +54,9 @@ app.get("/students", async (req, res) => {
     }
 })
 
+/**
+ * Deletes Student with matching ID
+ */
 app.delete("/students", async(req, res) => {
     try{
         const {id} = req.body
@@ -65,6 +75,9 @@ app.delete("/students", async(req, res) => {
     }
 })
 
+/**
+ * Creates Class with given name
+ */
 app.post("/classes", async(req, res) =>{
     try{
         const {name} = req.body
@@ -83,6 +96,9 @@ app.post("/classes", async(req, res) =>{
     }
 })
 
+/**
+ * Returns all Classes
+ */
 app.get("/classes", async (req, res) => {
     try{
         const classes = await prisma.class.findMany()
@@ -94,6 +110,9 @@ app.get("/classes", async (req, res) => {
     }
 })
 
+/**
+ * Delete Class with matching ID
+ */
 app.delete("/classes", async(req, res) => {
     try{
         const {id} = req.body
@@ -112,6 +131,9 @@ app.delete("/classes", async(req, res) => {
     }
 })
 
+/**
+ * Returns Classes that have a relation with a given Student
+ */
 app.get("/classes/student", async(req, res) => {
     try{
         let id = Number(req.query.id);
@@ -135,7 +157,9 @@ app.get("/classes/student", async(req, res) => {
     }
 })
 
-
+/**
+ * Returns Classes that don't have a relation with a given Student
+ */
 app.get("/classes/student/new", async(req, res) => {
     try{
         let id = Number(req.query.id);
@@ -161,6 +185,9 @@ app.get("/classes/student/new", async(req, res) => {
     }
 })
 
+/**
+ * Creates a relation between given Student and Class
+ */
 app.post("/classes/student", async(req, res) =>{
     try{
         const {studentid, classid} = req.body
@@ -180,6 +207,9 @@ app.post("/classes/student", async(req, res) =>{
     }
 })
 
+/**
+ * Deletes a relation between given Student and Class
+ */
 app.delete("/student/class", async (req, res) =>{
     try{
         const {studentid, classid} = req.body
@@ -201,6 +231,9 @@ app.delete("/student/class", async (req, res) =>{
     }
 })
 
+/**
+ * Returns Students that have a relation with a given Class
+ */
 app.get("/students/class", async(req, res) => {
     try{
         let id = Number(req.query.id);
@@ -224,7 +257,9 @@ app.get("/students/class", async(req, res) => {
     }
 })
 
-
+/**
+ * Returns Students that don't have a relation with a given Class
+ */
 app.get("/students/class/new", async(req, res) => {
     try{
         let id = Number(req.query.id);

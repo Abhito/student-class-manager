@@ -27,6 +27,8 @@
   opacity: 0;
   animation: fadeInUp 1s 1s;
   animation-fill-mode: forwards;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &:hover{
     border: .2em solid theme.$orange;

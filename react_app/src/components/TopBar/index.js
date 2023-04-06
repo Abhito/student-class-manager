@@ -1,6 +1,11 @@
 import './index.scss'
 import {Link} from "react-router-dom";
 
+/**
+ * TopBar holds buttons for switching between Students and Classes View
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const TopBar = () =>{
 
     return(

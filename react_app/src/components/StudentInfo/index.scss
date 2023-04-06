@@ -3,9 +3,12 @@
 .student-title{
   margin-left: 3%;
   border-left: .4em solid theme.$yellow;
-  padding-left: 2em;
+  padding-left: 1em;
   margin-bottom: 2%;
   background: theme.$lightYellow;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
 
   h1{
     display: inline-block;
@@ -157,6 +160,15 @@
     &:hover{
       border-bottom: .1em solid theme.$orange;
       transition: border-bottom-width 0.2s;
+    }
+  }
+}
+
+@media screen and (max-width: 800px){
+  .student-title{
+
+    h1{
+      font-size: 1.5em;
     }
   }
 }
