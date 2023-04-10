@@ -187,7 +187,7 @@ const StudentInfo = () =>{
         const nameH1 = document.querySelector(".student-name");
         const edit = document.querySelector(".rename-input");
 
-        nameH1.style.display = "inline-block";
+        nameH1.style.display = "block";
         edit.style.display = "none";
         document.querySelector("form").reset();
     }
