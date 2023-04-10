@@ -78,7 +78,7 @@ const Students = () => {
                                     <button className="delete btn" onClick={() => deleteStudent(student)}>X</button>
                                 </div>
                             </div>
-                        )
+                        );
                     })
                 }
             </div>

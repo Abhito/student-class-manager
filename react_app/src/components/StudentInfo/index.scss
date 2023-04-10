@@ -10,11 +10,29 @@
   text-overflow: ellipsis;
   word-wrap: break-word;
 
+  .rename-input{
+    background: transparent;
+    display: none;
+    font-size: 3em;
+    font-weight: bold;
+    border: .1em solid theme.$yellow;
+    width: 80%;
+    margin: .2em 0;
+
+    &::placeholder{
+      color: theme.$blue;
+    }
+  }
+
   h1{
     display: inline-block;
     margin: .2em 0;
     font-size: 3em;
     border-bottom: .1em solid theme.$yellow;
+
+    &:hover{
+      border: .1em solid theme.$yellow;
+    }
   }
 }
 
@@ -168,6 +186,10 @@
   .student-title{
 
     h1{
+      font-size: 1.5em;
+    }
+
+    .rename-input{
       font-size: 1.5em;
     }
   }

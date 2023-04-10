@@ -1,6 +1,6 @@
 import './index.scss'
-import {Link, useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
 
 /**
  * Student view displays student information and allows you to edit their classes
@@ -8,10 +8,12 @@ import {useEffect, useState} from "react";
  * @constructor
  */
 const StudentInfo = () =>{
+    const form = useRef()
     const [studentClasses, setStudentClasses] = useState([])
     const [newClasses, setNewClasses] = useState([])
     const {state} = useLocation()
     let isExpanded = false;
+    const navigate = useNavigate();
 
     useEffect(  () => {
         fetchStudentClasses()
@@ -47,27 +49,27 @@ const StudentInfo = () =>{
             .then((result) => result.json())
             .then((info) => {
                 console.log(info);
-                setNewClasses([...newClasses, course])
-                fetchStudentClasses()
+                setNewClasses([...newClasses, course]);
+                fetchStudentClasses();
             })
     }
 
 
     //Show classes to enroll to
     const showDropdown = () =>{
-        const dropdown = document.querySelector(".dropdown")
-        const button = document.querySelector(".big-enroll")
+        const dropdown = document.querySelector(".dropdown");
+        const button = document.querySelector(".big-enroll");
         if(isExpanded){
-            isExpanded = false
-            dropdown.classList.remove("expand")
-            dropdown.classList.add("collapse")
-            button.classList.remove("clicked")
+            isExpanded = false;
+            dropdown.classList.remove("expand");
+            dropdown.classList.add("collapse");
+            button.classList.remove("clicked");
         }
         else{
-            isExpanded = true
-            dropdown.classList.add("expand")
-            dropdown.classList.remove("collapse")
-            button.classList.add("clicked")
+            isExpanded = true;
+            dropdown.classList.add("expand");
+            dropdown.classList.remove("collapse");
+            button.classList.add("clicked");
         }
     }
 
@@ -115,7 +117,7 @@ const StudentInfo = () =>{
                     }
                 </ul>
             </div>
-        )
+        );
     }
 
     //Show all enrolled classes
@@ -139,10 +141,64 @@ const StudentInfo = () =>{
         );
     }
 
+    //Rename Student
+    const renameStudent = async (e) =>{
+        e.preventDefault()
+        const newName = form.current[0]?.value;
+        if(newName !== ""){
+            await fetch("http://localhost:3001/students", {
+                method: "PUT",
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "name": newName,
+                    "id": state.student.id,
+                })
+            })
+                .then((result) => result.json())
+                .then((info) => {
+                    console.log(info);
+                    navigate(`/Students/student-info/${newName}`, {
+                        state:{
+                            student:{
+                                id: state.student.id,
+                                name: newName,
+                            }
+                        }
+                    });
+                });
+        }
+        hideInput();
+    }
+
+    //Show rename Field
+    const showInput = () =>{
+        const nameH1 = document.querySelector(".student-name");
+        const edit = document.querySelector(".rename-input");
+
+        nameH1.style.display = "none";
+        edit.style.display = "inline-block";
+        edit.focus();
+    }
+
+    //Hide rename input field
+    const hideInput = () =>{
+        const nameH1 = document.querySelector(".student-name");
+        const edit = document.querySelector(".rename-input");
+
+        nameH1.style.display = "inline-block";
+        edit.style.display = "none";
+        document.querySelector("form").reset();
+    }
+
     return(
         <div className="container student-page">
             <div className="student-title">
-                <h1>{state.student.name}</h1>
+                <form ref={form} onSubmit={renameStudent}>
+                    <input type="text" name="name" placeholder={state.student.name} className="rename-input"/>
+                </form>
+                <h1 onClick={showInput} className="student-name">{state.student.name}</h1>
             </div>
             <div>
                 {renderNewClasses(newClasses)}
@@ -151,7 +207,7 @@ const StudentInfo = () =>{
                 {renderClasses(studentClasses)}
             </div>
         </div>
-    )
+    );
 }
 
 export default StudentInfo;

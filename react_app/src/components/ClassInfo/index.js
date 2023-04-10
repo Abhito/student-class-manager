@@ -1,7 +1,7 @@
 import './index.scss'
 
-import {Link, useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
 
 /**
  * Class view shows class information and allows you to edit which students are enrolled
@@ -9,10 +9,12 @@ import {useEffect, useState} from "react";
  * @constructor
  */
 const ClassInfo = () =>{
+    const form = useRef()
     const [classStudents, setClassStudents] = useState([])
     const [newStudents, setNewStudents] = useState([])
     const {state} = useLocation()
     let isExpanded = false;
+    const navigate = useNavigate();
 
     useEffect(  () => {
         fetchClassStudents()
@@ -139,10 +141,64 @@ const ClassInfo = () =>{
         )
     }
 
+    //Rename Class
+    const renameClass = async (e) =>{
+        e.preventDefault()
+        const newName = form.current[0]?.value;
+        if(newName !== ""){
+            await fetch("http://localhost:3001/classes", {
+                method: "PUT",
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "name": newName,
+                    "id": state.course.id,
+                })
+            })
+                .then((result) => result.json())
+                .then((info) => {
+                    console.log(info);
+                    navigate(`/Classes/class-info/${newName}`, {
+                        state:{
+                            course:{
+                                id: state.course.id,
+                                name: newName,
+                            }
+                        }
+                    });
+                });
+        }
+        hideInput();
+    }
+
+    //Show rename Field
+    const showInput = () =>{
+        const nameH1 = document.querySelector(".class-name");
+        const edit = document.querySelector(".rename-input");
+
+        nameH1.style.display = "none";
+        edit.style.display = "inline-block";
+        edit.focus();
+    }
+
+    //Hide rename input field
+    const hideInput = () =>{
+        const nameH1 = document.querySelector(".class-name");
+        const edit = document.querySelector(".rename-input");
+
+        nameH1.style.display = "inline-block";
+        edit.style.display = "none";
+        document.querySelector("form").reset();
+    }
+
     return(
         <div className="container student-page">
             <div className="class-title">
-                <h1>{state.course.name}</h1>
+                <form ref={form} onSubmit={renameClass}>
+                    <input type="text" name="name" placeholder={state.course.name} className="rename-input"/>
+                </form>
+                <h1 onClick={showInput} className="class-name">{state.course.name}</h1>
             </div>
             <div>
                 {renderNewStudents(newStudents)}

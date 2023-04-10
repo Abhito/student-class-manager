@@ -59,21 +59,44 @@ app.get("/students", async (req, res) => {
  */
 app.delete("/students", async(req, res) => {
     try{
-        const {id} = req.body
+        const {id} = req.body;
 
         const deletedStudent = await prisma.student.delete({
             where:{
                 id,
             }
-        })
-        res.json(deletedStudent)
+        });
+        res.json(deletedStudent);
 
     } catch(e){
         res.status(500).json({
             message: e.message,
-        })
+        });
     }
 })
+
+/**
+ * Updates student with new name
+ */
+app.put("/students", async (req, res) =>{
+    try{
+        const {name, id} = req.body;
+
+        const updatedStudent = await prisma.student.update({
+            where:{
+                id: Number(id),
+            },
+            data:{
+                name: name,
+            }
+        });
+        res.json(updatedStudent)
+    } catch(e){
+        res.status(500).json({
+            message: e.message,
+        });
+    }
+});
 
 /**
  * Creates Class with given name
@@ -129,7 +152,30 @@ app.delete("/classes", async(req, res) => {
             message: e.message,
         })
     }
-})
+});
+
+/**
+ * Updates class with new name
+ */
+app.put("/classes", async (req, res) =>{
+    try{
+        const {name, id} = req.body;
+
+        const updatedStudent = await prisma.class.update({
+            where:{
+                id: Number(id),
+            },
+            data:{
+                name: name,
+            }
+        });
+        res.json(updatedStudent)
+    } catch(e){
+        res.status(500).json({
+            message: e.message,
+        });
+    }
+});
 
 /**
  * Returns Classes that have a relation with a given Student
