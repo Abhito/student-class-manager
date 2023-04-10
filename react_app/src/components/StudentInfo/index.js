@@ -196,7 +196,7 @@ const StudentInfo = () =>{
         <div className="container student-page">
             <div className="student-title">
                 <form ref={form} onSubmit={renameStudent}>
-                    <input type="text" name="name" placeholder={state.student.name} className="rename-input"/>
+                    <input type="text" name="name" placeholder={state.student.name} className="rename-input" onBlur={hideInput}/>
                 </form>
                 <h1 onClick={showInput} className="student-name">{state.student.name}</h1>
             </div>
