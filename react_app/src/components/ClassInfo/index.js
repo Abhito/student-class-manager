@@ -187,7 +187,7 @@ const ClassInfo = () =>{
         const nameH1 = document.querySelector(".class-name");
         const edit = document.querySelector(".rename-input");
 
-        nameH1.style.display = "block";
+        nameH1.style.display = "inline-block";
         edit.style.display = "none";
         document.querySelector("form").reset();
     }
